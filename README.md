@@ -2,6 +2,10 @@
 
 KMath provides a way to work with uni- and multivariate polynomials and rational functions. It includes full support of arithmetic operations of integers, **constants** (elements of ring polynomials are build over), variables (for certain multivariate implementations), polynomials and rational functions encapsulated in so-called **polynomial space** and **rational function space** and some other utilities such as algebraic differentiation and substitution.
 
+## Author
+
+The project created and maintained by [Gleb Minaev](https://github.com/lounres).
+
 ## Concrete realizations
 
 There are 3 approaches to represent polynomials:
