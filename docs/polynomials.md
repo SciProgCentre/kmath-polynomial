@@ -8,26 +8,26 @@ Here and throughout this whole module there are assumed such conventions.
 1. $0$ is a natural number. Different people may have different opinions on that. So let us assume that zero is a natural number here.
 
 Let us reminder some common terms.
-1. *Free variable* is just a formal symbol. Like $x$, $y$, $z$, $n$, $m$, $\alpha$, $\Zeta$, etc. In KMath variable can be described as absolutely arbitrary string (because they are represented as `Symbol` instances). 
-2. *Monomial* or *term of polynomial* (over a ring $R$) is a formal finite (associative commutative) product of an element of $R$ and free variables. If used variables are $x_1$, $x_2$, etc., then monomial is usually represented as a product $a x_1^{d_1} x_2^{d_2} ...$ for some natural or zero $d_i$ (where finitely many of $d_i$ are non-zero) or as a product $a \prod_{i \in I} x_i^{d_i}$ for some finite subset $I \subseteq \{1; 2; ...\}$.
+1. *Free variable* is just a formal symbol. Like $x$, $y$, $z$, $n$, $m$, $\alpha$, $\zeta$, etc. In KMath variable can be described as absolutely arbitrary string (because they are represented as `Symbol` instances). 
+2. *Monomial* or *term of polynomial* (over a ring $R$) is a formal finite (associative commutative) product of an element of $R$ and free variables. If used variables are $x_1$, $x_2$, etc., then monomial is usually represented as a product $a \\; x_1^{d_1} x_2^{d_2} ...$ for some natural or zero $d_i$ (where finitely many of $d_i$ are non-zero) or as a product $a \prod_{i \in I} x_i^{d_i}$ for some finite subset $I \subseteq \\{1; 2; ...\\}$.
 3. *Polynomial* (over a ring $R$) is a formal finite (associative commutative) sum of monomials.
 4. If a polynomial does not involve any variable (it is equal to an element of the ring $R$), it is called *constant*. If it involves a single variable, it is called *univariate*. If it involves several variables, it is called *multivariate*.
 
 In KMath, we also reserve some additional terms.
-1. As you can see, each monomial is a complex of some element $a \in R$ and some finite set of variable powers $\{x_i^{d_i}\}_{i \in I}$. A better representation of the mentioned set is a [functional relation](https://en.wikipedia.org/wiki/Binary_relation#Special_types_of_binary_relations) from the set of considered variables to $\mathbb{N}$. (One can say that this is simply a map (in programming meaning, dictionary) with the variables as its keys and with natural number as its values that matches each variable with its degree $d_i$ in the monomials.) $a$ here is called *the monomial's coefficient* and the functional relation (map, dictionary) here is called *the monomial's (degree) signature*.
+1. As you can see, each monomial is a complex of some element $a \in R$ and some finite set of variable powers $\\{x_i^{d_i}\\}_{i \in I}$. A better representation of the mentioned set is a [functional relation](https://en.wikipedia.org/wiki/Binary_relation#Special_types_of_binary_relations) from the set of considered variables to $\mathbb{N}$. (One can say that this is simply a map (in programming meaning, dictionary) with the variables as its keys and with natural number as its values that matches each variable with its degree $d_i$ in the monomials.) $a$ here is called *the monomial's coefficient* and the functional relation (map, dictionary) here is called *the monomial's (degree) signature*.
 
 Now we have defined what mathematical entities we discuss. And the main problem here is how we should represent it on computer. And here are some approaches grouped by their type:
 1. For univariate polynomials one can represent and store polynomial as a list of coefficients for each power of the single variable. I.e. polynomial $a_0 + \dots + a_n x^n$ can be represented as a finite sequence $(a_0; \dots; a_n)$. (Compare to the sequential definition of univariate polynomials if you met it on some algebra course.)
 2. For multivariate polynomials it's better not to have several monomials of the same signature, but to sum them up in single monomial of the same signature. Hence, one can represent and store polynomial as a matching ("map" or "dictionary" in programming, [functional relation](https://en.wikipedia.org/wiki/Binary_relation#Special_types_of_binary_relations) in math) of each monomial signature with the corresponding monomial coefficient. But there are 2 possible approaches of monomial signature representation:
-    1. If there is a numbering of variables, monomial signature can be represented as a sequence describing powers of the variables. I.e. signature $x_0^{d_0} \dots x_n^{d_n} $ can be represented as a finite sequence  $(d_0; \dots; d_n)$. To forbid signature representation ambiguity, $d_n$ must not be zero.
-    2. If variables are represented as just plain objects ("labels"), then monomial signature can also be represented as a matching of each appeared variable with its power in the monomial. I.e. signature $x_0^{d_0} \dots x_n^{d_n} $ can be represented as a finite matching $(x_0 \to d_1; \dots; x_n \to d_n)$, and signature $a^2 b^3 d c^2$ can be represented as a matching $(a \to 2; b \to 3; d \to 1; c \to 2)$. To forbid signature representation ambiguity, all matched values ($d_i$ in the first example) must not be zero.
+    1. If there is a numbering of variables, monomial signature can be represented as a sequence describing powers of the variables. I.e. signature $x_0^{d_0} \dots x_n^{d_n}$ can be represented as a finite sequence  $(d_0; \dots; d_n)$. To forbid signature representation ambiguity, $d_n$ must not be zero.
+    2. If variables are represented as just plain objects ("labels"), then monomial signature can also be represented as a matching of each appeared variable with its power in the monomial. I.e. signature $x_0^{d_0} \dots x_n^{d_n}$ can be represented as a finite matching $(x_0 \to d_1; \dots; x_n \to d_n)$, and signature $a^2 b^3 d c^2$ can be represented as a matching $(a \to 2; b \to 3; d \to 1; c \to 2)$. To forbid signature representation ambiguity, all matched values ( $d_i$ in the first example) must not be zero.
 
 All the three approaches are implemented by "list", "numbered", and "labeled" versions of polynomials and polynomial spaces respectively. Whereas all rational functions are represented as fractions with corresponding polynomial numerator and denominator, and rational functions' spaces are implemented in the same way as usual field of rational numbers (or more precisely, as any field of fractions over integral domain) should be implemented.
 
 ## Concrete realizations
 
 So here is a bit of detail. Let `C` by type of constants. Then:
-1. `ListPolynomial`, `ListPolynomialSpace`, `ListRationalFunction` and `ListRationalFunctionSpace` implement the first scenario. `ListPolynomial` stores polynomial  $a_0 + \dots + a_n x^n $ as a coefficients list `listOf(a_0, ..., a_n)` (of type `List<C>`).
+1. `ListPolynomial`, `ListPolynomialSpace`, `ListRationalFunction` and `ListRationalFunctionSpace` implement the first scenario. `ListPolynomial` stores polynomial  $a_0 + \dots + a_n x^n$ as a coefficients list `listOf(a_0, ..., a_n)` (of type `List<C>`).
 
    They also have variation `ScalableListPolynomialSpace` that replaces former polynomials and implements `ScaleOperations`.
 2. `NumberedPolynomial`, `NumberedPolynomialSpace`, `NumberedRationalFunction` and `NumberedRationalFunctionSpace` implement second scenario. `NumberedPolynomial` stores polynomials as structures of type `Map<List<UInt>, C>`. Signatures are stored as `List<UInt>`. To prevent ambiguity signatures should not end with zeros.
@@ -35,7 +35,7 @@ So here is a bit of detail. Let `C` by type of constants. Then:
 
 ### Example: `ListPolynomial`
 
-For example, polynomial $2 - 3x + x^2 $ (with `Int` coefficients) is represented as
+For example, polynomial $2 - 3x + x^2$ (with `Int` coefficients) is represented as
 ```kotlin
 val polynomial: ListPolynomial<Int> = ListPolynomial(listOf(2, -3, 1))
 // or
@@ -55,7 +55,7 @@ For more see [examples](../examples/src/main/kotlin/space/kscience/kmath/functio
 
 ### Example: `NumberedPolynomial`
 
-For example, polynomial $3 + 5 x_1 - 7 x_0^2 x_2 $ (with `Int` coefficients) is represented
+For example, polynomial $3 + 5 x_1 - 7 x_0^2 x_2$ (with `Int` coefficients) is represented
 ```kotlin
 val polynomial: NumberedPolynomial<Int> = NumberedPolynomial(
     mapOf(
@@ -97,7 +97,7 @@ For more see [examples](../examples/src/main/kotlin/space/kscience/kmath/functio
 
 ### Example: `LabeledPolynomial`
 
-For example, polynomial  $3 + 5 y - 7 x^2 z $ (with `Int` coefficients) is represented
+For example, polynomial  $3 + 5 y - 7 x^2 z$ (with `Int` coefficients) is represented
 ```kotlin
 val polynomial: LabeledPolynomial<Int> = LabeledPolynomial(
     mapOf(
