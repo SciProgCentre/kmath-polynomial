@@ -5,6 +5,8 @@
 
 @file:Suppress("LocalVariableName")
 
+package space.kscience.kmath.functions
+
 import space.kscience.kmath.expressions.Symbol
 import space.kscience.kmath.expressions.symbol
 import space.kscience.kmath.functions.*
