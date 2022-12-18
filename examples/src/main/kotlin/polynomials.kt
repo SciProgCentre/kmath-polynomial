@@ -45,7 +45,7 @@ fun listPolynomialsExample() {
         println(2.0 - 3.0 * x + x * x == polynomial6)
     }
 
-    // Also there are some utilities for polynomials:
+    // Also, there are some utilities for polynomials:
     println(polynomial1.substitute(Int.algebra, 1) == 0) // true, because 2 + (-3) * 1 + 1^2 = 0
     println(
         polynomial1.substitute(
@@ -78,7 +78,7 @@ fun numberedPolynomialsExample() {
     // 3 + 5 x_2 - 7 x_1^2 x_3
     // Consider, for example, its term -7 x_1^2 x_3. -7 is a coefficient of the term, whereas (2, 0, 1, 0, 0, ...) is
     // description of degrees of variables x_1, x_2, ... in the term. Such description with removed leading zeros
-    // [2, 0, 1] is called "signature" of the term -7 x_1^2 x_3.
+    // [2, 0, 1] is called the "signature" of the term -7 x_1^2 x_3.
 
     val polynomial1: NumberedPolynomial<Int>
     with(Int.algebra) {
@@ -93,8 +93,8 @@ fun numberedPolynomialsExample() {
         )
         // represents polynomial 3 + 5 x_2 - 7 x_1^2 x_3
 
-        // This `NumberedPolynomial` function needs context of either ring of constant (as `Int.algebra` in this example)
-        // or space of NumberedPolynomials over it. To understand why it is like this see documentations of functions
+        // This `NumberedPolynomial` function needs context of either constants ring (as `Int.algebra` in this example)
+        // or NumberedPolynomials space over it. To understand why it is like this see documentations of functions
         // NumberedPolynomial and NumberedPolynomialWithoutCheck
 
         // There are also shortcut fabrics:
@@ -111,7 +111,7 @@ fun numberedPolynomialsExample() {
         println(polynomial3 == polynomial4) // true
 
         numberedPolynomialSpace {
-            // Also there is DSL for constructing NumberedPolynomials:
+            // Also, there is DSL for constructing NumberedPolynomials:
             val polynomial5: NumberedPolynomial<Int> = NumberedPolynomialDSL1 {
                 3 {}
                 5 { 1 inPowerOf 1u }
@@ -121,7 +121,7 @@ fun numberedPolynomialsExample() {
             }
             println(polynomial1 == polynomial5) // true
 
-            // Unfortunately the DSL does not work good in bare context of constants' ring, so for now it's disabled and
+            // Unfortunately, the DSL does not work good in bare context of constants' ring, so for now it's disabled and
             // works only in NumberedPolynomialSpace and NumberedRationalFunctionSpace
         }
     }
@@ -182,7 +182,7 @@ fun numberedPolynomialsExample() {
 
     Int.algebra.numberedPolynomialSpace {
         val x_4: NumberedPolynomial<Int> = NumberedPolynomial(listOf(0u, 0u, 0u, 4u) to 1)
-        // Also there are some utilities for polynomials:
+        // Also, there are some utilities for polynomials:
         println(polynomial1.substitute(mapOf(0 to 1, 1 to -2, 2 to -1)) == 0.asNumberedPolynomial()) // true,
         // because it's substitution x_1 -> 1, x_2 -> -2, x_3 -> -1,
         // so 3 + 5 x_2 - 7 x_1^2 x_3 = 3 + 5 * (-2) - 7 * 1^2 * (-1) = 3 - 10 + 7 = 0
@@ -243,7 +243,7 @@ fun labeledPolynomialsExample() {
     // Consider polynomial
     // 3 + 5 y - 7 x^2 z
     // Consider, for example, its term -7 x^2 z. -7 is a coefficient of the term, whereas matching (x -> 2, z -> 3) is
-    // description of degrees of variables x_1, x_2, ... in the term. Such description is called "signature" of the
+    // variables x_1, x_2, ... degrees description in the term. Such description is called the "signature" of the
     // term -7 x_1^2 x_3.
 
     val polynomial1: LabeledPolynomial<Int>
@@ -259,8 +259,8 @@ fun labeledPolynomialsExample() {
         )
         // represents polynomial 3 + 5 y - 7 x^2 z
 
-        // This `LabeledPolynomial` function needs context of either ring of constant (as `Int.algebra` in this example)
-        // or space of LabeledPolynomials over it. To understand why it is like this see documentations of functions
+        // This `LabeledPolynomial` function needs context of either constants ring (as `Int.algebra` in this example)
+        // or LabeledPolynomials space over it. To understand why it is like this see documentations of functions
         // LabeledPolynomial and LabeledPolynomialWithoutCheck
 
         // There are also shortcut fabrics:
@@ -277,7 +277,7 @@ fun labeledPolynomialsExample() {
         println(polynomial3 == polynomial4) // true
 
         labeledPolynomialSpace {
-            // Also there is DSL for constructing NumberedPolynomials:
+            // Also, there is DSL for constructing NumberedPolynomials:
             val polynomial5: LabeledPolynomial<Int> = LabeledPolynomialDSL1 {
                 3 {}
                 5 { y inPowerOf 1u }
@@ -287,7 +287,7 @@ fun labeledPolynomialsExample() {
             }
             println(polynomial1 == polynomial5) // true
 
-            // Unfortunately the DSL does not work good in bare context of constants' ring, so for now it's disabled and
+            // Unfortunately, the DSL does not work good in bare context of constants' ring, so for now it's disabled and
             // works only in NumberedPolynomialSpace and NumberedRationalFunctionSpace
         }
     }
@@ -344,7 +344,7 @@ fun labeledPolynomialsExample() {
     }
 
     Int.algebra.labeledPolynomialSpace {
-        // Also there are some utilities for polynomials:
+        // Also, there are some utilities for polynomials:
         println(polynomial1.substitute(mapOf(x to 1, y to -2, z to -1)) == 0.asLabeledPolynomial()) // true,
         // because it's substitution x -> 1, y -> -2, z -> -1,
         // so 3 + 5 y - 7 x^2 z = 3 + 5 * (-2) - 7 * 1^2 * (-1) = 3 - 10 + 7 = 0
