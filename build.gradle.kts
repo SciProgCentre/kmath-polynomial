@@ -64,7 +64,7 @@ readme {
         "rational function abstraction",
         "src/commonMain/kotlin/space/kscience/kmath/functions/RationalFunction.kt"
     ) {
-        "Abstraction for rational functions spaces."
+        "Abstraction for rational function spaces."
     }
     feature("\"list\" polynomials", "src/commonMain/kotlin/space/kscience/kmath/functions/ListRationalFunction.kt") {
         "List implementation of univariate polynomials."
@@ -73,13 +73,13 @@ readme {
         "List implementation of univariate rational functions."
     }
     feature(
-        "\"list\" polynomials and rational functions constructors",
+        "\"list\" polynomials' and rational functions' constructors",
         "src/commonMain/kotlin/space/kscience/kmath/functions/listConstructors.kt"
     ) {
         "Constructors for list polynomials and rational functions."
     }
     feature(
-        "\"list\" polynomials and rational functions utilities",
+        "\"list\" polynomials' and rational functions' utilities",
         "src/commonMain/kotlin/space/kscience/kmath/functions/listUtil.kt"
     ) {
         "Utilities for list polynomials and rational functions."
@@ -97,13 +97,13 @@ readme {
         "Numbered implementation of multivariate rational functions."
     }
     feature(
-        "\"numbered\" polynomials and rational functions constructors",
+        "\"numbered\" polynomials' and rational functions' constructors",
         "src/commonMain/kotlin/space/kscience/kmath/functions/numberedConstructors.kt"
     ) {
         "Constructors for numbered polynomials and rational functions."
     }
     feature(
-        "\"numbered\" polynomials and rational functions utilities",
+        "\"numbered\" polynomials' and rational functions' utilities",
         "src/commonMain/kotlin/space/kscience/kmath/functions/numberedUtil.kt"
     ) {
         "Utilities for numbered polynomials and rational functions."
@@ -121,13 +121,13 @@ readme {
         "Labeled implementation of multivariate rational functions."
     }
     feature(
-        "\"labeled\" polynomials and rational functions constructors",
+        "\"labeled\" polynomials' and rational functions' constructors",
         "src/commonMain/kotlin/space/kscience/kmath/functions/labeledConstructors.kt"
     ) {
         "Constructors for labeled polynomials and rational functions."
     }
     feature(
-        "\"labeled\" polynomials and rational functions utilities",
+        "\"labeled\" polynomials' and rational functions' utilities",
         "src/commonMain/kotlin/space/kscience/kmath/functions/labeledUtil.kt"
     ) {
         "Utilities for labeled polynomials and rational functions."
