@@ -22,7 +22,7 @@ Now we have defined what mathematical entities we discuss. And the main problem 
     1. If there is a numbering of variables, monomial signature can be represented as a sequence describing powers of the variables. I.e. signature $x_0^{d_0} \dots x_n^{d_n}$ can be represented as a finite sequence  $(d_0; \dots; d_n)$. To forbid signature representation ambiguity, $d_n$ must not be zero.
     2. If variables are represented as just plain objects ("labels"), then monomial signature can also be represented as a matching of each appeared variable with its power in the monomial. I.e. signature $x_0^{d_0} \dots x_n^{d_n}$ can be represented as a finite matching $(x_0 \to d_1; \dots; x_n \to d_n)$, and signature $a^2 b^3 d c^2$ can be represented as a matching $(a \to 2; b \to 3; d \to 1; c \to 2)$. To forbid signature representation ambiguity, all matched values ( $d_i$ in the first example) must not be zero.
 
-All the three approaches are implemented by "list", "numbered", and "labeled" versions of polynomials and polynomial spaces respectively. Whereas all rational functions are represented as fractions with corresponding polynomial numerator and denominator, and rational functions' spaces are implemented in the same way as usual field of rational numbers (or more precisely, as any field of fractions over integral domain) should be implemented.
+All the three approaches are implemented by "list", "numbered", and "labeled" versions of polynomials and polynomial spaces respectively. Whereas all rational functions are represented as fractions with corresponding polynomial numerator and denominator, and rational functions' spaces are implemented in the same way as a usual field of rational numbers (or more precisely, as any field of fractions over an integral domain) should be implemented.
 
 ## Concrete realizations
 
@@ -30,8 +30,8 @@ So here is a bit of detail. Let `C` by type of constants. Then:
 1. `ListPolynomial`, `ListPolynomialSpace`, `ListRationalFunction` and `ListRationalFunctionSpace` implement the first scenario. `ListPolynomial` stores polynomial  $a_0 + \dots + a_n x^n$ as a coefficients list `listOf(a_0, ..., a_n)` (of type `List<C>`).
 
    They also have variation `ScalableListPolynomialSpace` that replaces former polynomials and implements `ScaleOperations`.
-2. `NumberedPolynomial`, `NumberedPolynomialSpace`, `NumberedRationalFunction` and `NumberedRationalFunctionSpace` implement second scenario. `NumberedPolynomial` stores polynomials as structures of type `Map<List<UInt>, C>`. Signatures are stored as `List<UInt>`. To prevent ambiguity signatures should not end with zeros.
-3. `LabeledPolynomial`, `LabeledPolynomialSpace`, `LabeledRationalFunction` and `LabeledRationalFunctionSpace` implement third scenario using common `Symbol` as variable type. `LabeledPolynomial` stores polynomials as structures of type `Map<Map<Symbol, UInt>, C>`. Signatures are stored as `Map<Symbol, UInt>`. To prevent ambiguity each signature should not map any variable to zero.
+2. `NumberedPolynomial`, `NumberedPolynomialSpace`, `NumberedRationalFunction` and `NumberedRationalFunctionSpace` implement the second scenario. `NumberedPolynomial` stores polynomials as structures of type `Map<List<UInt>, C>`. Signatures are stored as `List<UInt>`. To prevent ambiguity, signatures should not end with zeros.
+3. `LabeledPolynomial`, `LabeledPolynomialSpace`, `LabeledRationalFunction` and `LabeledRationalFunctionSpace` implement the third scenario using common `Symbol` as a variable type. `LabeledPolynomial` stores polynomials as structures of type `Map<Map<Symbol, UInt>, C>`. Signatures are stored as `Map<Symbol, UInt>`. To prevent ambiguity, each signature should not map any variable to zero.
 
 ### Example: `ListPolynomial`
 
@@ -72,7 +72,7 @@ val polynomial: NumberedPolynomial<Int> = NumberedPolynomial(
 )
 ```
 
-All algebraic operations can be used in corresponding space:
+All algebraic operations can be used in the corresponding space:
 ```kotlin
 val computationResult = Int.algebra.numberedPolynomialSpace {
     NumberedPolynomial(
@@ -114,7 +114,7 @@ val polynomial: LabeledPolynomial<Int> = LabeledPolynomial(
 )
 ```
 
-All algebraic operations can be used in corresponding space:
+All algebraic operations can be used in the corresponding space:
 ```kotlin
 val computationResult = Int.algebra.labeledPolynomialSpace {
     LabeledPolynomial(
@@ -164,20 +164,20 @@ classDiagram
    PolynomialSpaceOfFractions <|-- MultivariatePolynomialSpaceOfFractions
 ```
 
-There are implemented `Polynomial` and `RationalFunction` interfaces as abstractions of polynomials and rational functions respectively (although, there is not a lot of logic in them) and `PolynomialSpace` and `RationalFunctionSpace` (that implement `Ring` interface) as abstractions of polynomials' and rational functions' spaces respectively. More precisely, that means they allow to declare common logic of interaction with such objects and spaces:
-- `Polynomial` does not provide any logic. It is marker interface.
+There are implemented `Polynomial` and `RationalFunction` interfaces as abstractions of polynomials and rational functions respectively (although, there is not a lot of logic in them) and `PolynomialSpace` and `RationalFunctionSpace` (that implement `Ring` interface) as abstractions of polynomials' and rational functions' spaces respectively. More precisely, that means they permit declaring common logic of interaction with such objects and spaces:
+- `Polynomial` does not provide any logic. It is a marker interface.
 - `RationalFunction` provides numerator and denominator of rational function and destructuring declaration for them.
 - `PolynomialSpace` provides all possible arithmetic interactions of integers, constants (of type `C`), and polynomials (of type `P`) like addition, subtraction, multiplication, and some others and common properties like degree of polynomial.
 - `RationalFunctionSpace` provides the same as `PolynomialSpace` but also for rational functions: all possible arithmetic interactions of integers, constants (of type `C`), polynomials (of type `P`), and rational functions (of type `R`) like addition, subtraction, multiplication, division (in some cases), and some others and common properties like degree of polynomial.
 
 Then to add abstraction of similar behaviour with variables (in multivariate case) there are implemented `MultivariatePolynomialSpace` and `MultivariateRationalFunctionSpace`. They just include variables (of type `V`) in the interactions of the entities.
 
-Also, to remove boilerplates there were provided helping subinterfaces and abstract subclasses:
+Also, to remove boilerplate, there were provided helping subinterfaces and abstract subclasses:
 - `PolynomialSpaceOverRing` allows to replace implementation of interactions of integers and constants with implementations from provided ring over constants (of type `A: Ring<C>`).
 - `RationalFunctionSpaceOverRing` &mdash; the same but for `RationalFunctionSpace`.
 - `RationalFunctionSpaceOverPolynomialSpace` &mdash; the same but "the inheritance" includes interactions with polynomials from provided `PolynomialSpace`.
-- `PolynomialSpaceOfFractions` is actually abstract subclass of `RationalFunctionSpace` that implements all fractions boilerplates with provided (`protected`) constructor of rational functions by polynomial numerator and denominator.
-- `MultivariateRationalFunctionSpaceOverMultivariatePolynomialSpace` and `MultivariatePolynomialSpaceOfFractions` &mdash; the same stories of operators inheritance and fractions boilerplates respectively but in multivariate case.
+- `PolynomialSpaceOfFractions` is actually abstract subclass of `RationalFunctionSpace` that implements all fraction's logic boilerplate with provided (`protected`) constructor of rational functions by polynomial numerator and denominator.
+- `MultivariateRationalFunctionSpaceOverMultivariatePolynomialSpace` and `MultivariatePolynomialSpaceOfFractions` &mdash; the same stories of operators inheritance and fraction's logic boilerplate respectively but in multivariate case.
 
 ## Utilities
 
