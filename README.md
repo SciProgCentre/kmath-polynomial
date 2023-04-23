@@ -2,7 +2,8 @@
 
 KMath provides a way to work with uni- and multivariate polynomials and rational functions. It includes full support of arithmetic operations on integers, **constants** (elements of the ring that polynomials are built over), variables (for certain multivariate implementations), polynomials and rational functions encapsulated in the so-called **polynomial space** and **rational function space** and some other utilities, such as algebraic differentiation and substitution.
 
-> ### NOTICE.
+> **Note**
+>
 > This library is not actively maintained. At the moment, all the improvement is carried out in my [Kone library](https://github.com/lounres/kone) which looks similar to KMath but is not compatible with it.
 >
 > If you need polynomials in your project, you can inform me in [Kotlin Slack](https://kotlinlang.slack.com/team/U02S5GRD449). Then I'll try to move here all the features from Kone.
