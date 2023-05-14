@@ -5,15 +5,11 @@
 
 package space.kscience.kmath.functions
 
-import space.kscience.kmath.misc.UnstableKMathAPI
-import space.kscience.kmath.functions.testUtils.Rational
-import space.kscience.kmath.functions.testUtils.RationalField
-import space.kscience.kmath.functions.testUtils.assertFailsWithTypeAndMessage
+import space.kscience.kmath.UnstableKMathAPI
+import space.kscience.kmath.functions.testUtils.*
 import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import space.kscience.kmath.functions.testUtils.bufferOf
-import space.kscience.kmath.functions.testUtils.assertEquals
 
 
 class NumberedPolynomialUtilTest {
