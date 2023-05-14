@@ -7,7 +7,6 @@ plugins {
     id("space.kscience.gradle.mpp")
     `maven-publish`
 }
-val fxVersion by extra("11")
 
 val kmathVersion: String by project.extra
 val versionPrefix: String by project.extra("1.0.0")
@@ -17,8 +16,18 @@ allprojects {
     version = "${versionPrefix}-kmath-$kmathVersion"
 }
 
+
+dependencies {
+    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:${npmlibs.versions.dokka.get()}")
+}
+
 kscience {
+    jvm()
+    js()
     native()
+    dependencies {
+        api("space.kscience:kmath-core:$kmathVersion")
+    }
 }
 
 ksciencePublish {
@@ -26,7 +35,7 @@ ksciencePublish {
         useApache2Licence()
         useSPCTeam()
     }
-    github(githubProject = "visionforge", githubOrg = "SciProgCentre")
+    github(githubProject = "kmath-polynomials", githubOrg = "SciProgCentre")
     space(
         if (isInDevelopment) {
             "https://maven.pkg.jetbrains.space/spc/p/sci/dev"
@@ -37,21 +46,8 @@ ksciencePublish {
     sonatype()
 }
 
-
-
 description = "Polynomials, rational functions, and utilities"
 
-kotlin.sourceSets {
-    commonMain {
-        dependencies {
-            api("space.kscience:kmath-core:$kmathVersion")
-        }
-    }
-}
-
-dependencies {
-    dokkaPlugin("org.jetbrains.dokka:mathjax-plugin:${npmlibs.versions.dokka.get()}")
-}
 
 readme {
     maturity = space.kscience.gradle.Maturity.PROTOTYPE

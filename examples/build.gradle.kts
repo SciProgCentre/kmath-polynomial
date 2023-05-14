@@ -16,7 +16,7 @@ dependencies {
 kotlin.sourceSets.all {
     with(languageSettings) {
         optIn("kotlin.contracts.ExperimentalContracts")
-        optIn("space.kscience.kmath.misc.UnstableKMathAPI")
+        optIn("space.kscience.kmath.UnstableKMathAPI")
     }
 }
 

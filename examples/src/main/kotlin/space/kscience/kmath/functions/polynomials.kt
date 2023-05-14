@@ -4,12 +4,13 @@
  */
 
 @file:Suppress("LocalVariableName")
+@file:OptIn(UnstableKMathAPI::class)
 
 package space.kscience.kmath.functions
 
+import space.kscience.kmath.UnstableKMathAPI
 import space.kscience.kmath.expressions.Symbol
 import space.kscience.kmath.expressions.symbol
-import space.kscience.kmath.functions.*
 import space.kscience.kmath.operations.algebra
 import space.kscience.kmath.operations.invoke
 

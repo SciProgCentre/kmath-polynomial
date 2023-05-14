@@ -5,9 +5,12 @@
 
 package space.kscience.kmath.functions
 
+import space.kscience.kmath.UnstableKMathAPI
 import space.kscience.kmath.expressions.Symbol
-import space.kscience.kmath.misc.UnstableKMathAPI
-import space.kscience.kmath.operations.*
+import space.kscience.kmath.operations.Field
+import space.kscience.kmath.operations.Ring
+import space.kscience.kmath.operations.algebra
+import space.kscience.kmath.operations.invoke
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.jvm.JvmName
