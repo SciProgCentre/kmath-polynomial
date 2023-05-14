@@ -5,7 +5,7 @@
 
 package space.kscience.kmath.functions
 
-import space.kscience.kmath.misc.UnstableKMathAPI
+import space.kscience.kmath.UnstableKMathAPI
 import space.kscience.kmath.functions.testUtils.Rational
 import space.kscience.kmath.functions.testUtils.RationalField
 import space.kscience.kmath.functions.testUtils.assertFailsWithTypeAndMessage

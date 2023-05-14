@@ -7,7 +7,7 @@
 
 package space.kscience.kmath.functions
 
-import space.kscience.kmath.misc.UnstableKMathAPI
+import space.kscience.kmath.UnstableKMathAPI
 import space.kscience.kmath.operations.Ring
 
 
